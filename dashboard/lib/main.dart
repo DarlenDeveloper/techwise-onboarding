@@ -53,23 +53,16 @@ class _MainShellState extends State<MainShell> {
     _screens = [
       DashboardScreen(onNavigate: () => setState(() => _currentIndex = 1)),
       const DetailsScreen(),
-      Scaffold(
-        backgroundColor: const Color(0xFFF3F5F2),
+      const Scaffold(
+        backgroundColor: Color(0xFFF3F5F2),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Iconsax.profile_circle, size: 64, color: Colors.grey),
-              const SizedBox(height: 16),
-              Text(
-                'Profile Settings',
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1A1A2E),
-                ),
-              ),
-            ],
+          child: Text(
+            'Profile',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1A1A2E),
+            ),
           ),
         ),
       ),
@@ -91,8 +84,9 @@ class _MainShellState extends State<MainShell> {
               margin: const EdgeInsets.only(bottom: 32),
               padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color(0xFFF3F5F2),
                 borderRadius: BorderRadius.circular(40),
+                border: Border.all(color: Colors.grey.withOpacity(0.3), width: 0.5),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

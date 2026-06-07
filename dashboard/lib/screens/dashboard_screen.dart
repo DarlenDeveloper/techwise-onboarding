@@ -2,10 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../data/mock_data.dart';
 import '../widgets/summary_card.dart';
+import '../widgets/graph_popup.dart';
 
 class DashboardScreen extends StatelessWidget {
   final VoidCallback onNavigate;
   const DashboardScreen({super.key, required this.onNavigate});
+
+  void _showGraph(BuildContext context, String title, String value, bool isPositive) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.3),
+      builder: (_) => GraphPopup(
+        title: title,
+        value: value,
+        isPositive: isPositive,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +85,14 @@ class DashboardScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 childAspectRatio: 1.0,
-                children: const [
+                children: [
                   SummaryCard(
                     title: 'Total Sales',
                     value: '\$56,000',
                     svgPath: 'assets/icons/home-trend-down.svg',
                     percentChange: '+12%',
                     isPositive: true,
+                    onTap: () => _showGraph(context, 'Total Sales', '\$56,000', true),
                   ),
                   SummaryCard(
                     title: 'New Clients',
@@ -86,6 +100,7 @@ class DashboardScreen extends StatelessWidget {
                     svgPath: 'assets/icons/clipboard-export.svg',
                     percentChange: '+8%',
                     isPositive: true,
+                    onTap: () => _showGraph(context, 'New Clients', '1,240', true),
                   ),
                   SummaryCard(
                     title: 'Active Projects',
@@ -93,6 +108,7 @@ class DashboardScreen extends StatelessWidget {
                     svgPath: 'assets/icons/trello.svg',
                     percentChange: '-3%',
                     isPositive: false,
+                    onTap: () => _showGraph(context, 'Active Projects', '24', false),
                   ),
                   SummaryCard(
                     title: 'Pending Tasks',
@@ -100,6 +116,7 @@ class DashboardScreen extends StatelessWidget {
                     svgPath: 'assets/icons/task-square.svg',
                     percentChange: '+5%',
                     isPositive: true,
+                    onTap: () => _showGraph(context, 'Pending Tasks', '16', true),
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ class SummaryCard extends StatelessWidget {
   final String svgPath;
   final String percentChange;
   final bool isPositive;
+  final VoidCallback? onTap;
 
   const SummaryCard({
     super.key,
@@ -15,13 +16,16 @@ class SummaryCard extends StatelessWidget {
     required this.svgPath,
     this.percentChange = '+0%',
     this.isPositive = true,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(32),
       ),
@@ -84,6 +88,7 @@ class SummaryCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

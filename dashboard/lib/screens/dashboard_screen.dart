@@ -21,11 +21,12 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 26,
-                    backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=techwise'),
+                    backgroundColor: Colors.white,
+                    child: Icon(Iconsax.profile_circle5, size: 28, color: Color(0xFF1A1A2E)),
                   ),
                   const SizedBox(width: 14),
                   const Text(
-                    'Hi J.Snow',
+                    'Hello Admin',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

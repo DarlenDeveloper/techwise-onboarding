@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/details_screen.dart';
 
@@ -52,26 +53,75 @@ class _MainShellState extends State<MainShell> {
     _screens = [
       DashboardScreen(onNavigate: () => setState(() => _currentIndex = 1)),
       const DetailsScreen(),
+      Scaffold(
+        backgroundColor: const Color(0xFFF3F5F2),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Iconsax.profile_circle, size: 64, color: Colors.grey),
+              const SizedBox(height: 16),
+              Text(
+                'Profile Settings',
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFF1A1A2E),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    // Zero bars/drawers as requested. 
-    // Navigation is handled via internal state triggered by UI elements (like "See all").
     return Scaffold(
-      body: _screens[_currentIndex],
-      // Adding a VERY subtle hidden navigation or just providing a way to switch
-      // to satisfy the PDF while respecting the screenshot.
-      // I'll add a simple function to switch screens that I'll pass down.
-      floatingActionButton: _currentIndex == 1 
-        ? FloatingActionButton.small(
-            onPressed: () => setState(() => _currentIndex = 0),
-            backgroundColor: const Color(0xFF1A1A2E),
-            elevation: 0,
-            child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 16),
-          )
-        : null,
+      body: Stack(
+        children: [
+          // Main content
+          _screens[_currentIndex],
+
+          // Floating Navigation Pill
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                   _buildNavItem(Iconsax.home_15, Iconsax.home_1, 0),
+                  const SizedBox(width: 40),
+                  _buildNavItem(Iconsax.activity5, Iconsax.activity, 1),
+                  const SizedBox(width: 40),
+                  _buildNavItem(Iconsax.profile_circle5, Iconsax.profile_circle, 2),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData activeIcon, IconData inactiveIcon, int index) {
+    final isSelected = _currentIndex == index;
+    return GestureDetector(
+      onTap: () => setState(() => _currentIndex = index),
+      // Increase tap area
+      behavior: HitTestBehavior.opaque,
+      child: Icon(
+        isSelected ? activeIcon : inactiveIcon,
+        color: isSelected ? const Color(0xFF1A1A2E) : Colors.grey,
+        size: 26,
+      ),
     );
   }
 }
